@@ -33,12 +33,12 @@ export const imoveis = [
     // DESCRIÇÃO
     descricao: 'Excelente fazenda com 1.200 hectares, localizada em região produtiva e de fácil acesso, ideal para pecuária e agricultura. A propriedade possui 2.500 metros de margem de rio, garantindo abundância de água e ótimo potencial para irrigação. Conta com dupla aptidão, apresentando solo fértil e bem drenado. Estrutura operacional completa com estradas internas bem conservadas e documentação 100% regularizada.',
     
-    // FOTOS
+    // FOTOS (Pasta: public/images/imoveis/fazenda-regiao-cotegipe/)
     fotos: [
-      '/images/imoveis/fazenda-regiao-cotegipe/capa.webp',
-      '/images/imoveis/fazenda-regiao-cotegipe/capa2.webp',
-      '/images/imoveis/fazenda-regiao-cotegipe/capa3.webp',
-      '/images/imoveis/fazenda-regiao-cotegipe/capa4.webp'
+      '/images/imoveis/fazenda-regiao-cotegipe/fazenda-venda-cotegipe-bahia.webp',
+      '/images/imoveis/fazenda-regiao-cotegipe/area-rural-cotegipe-rio.webp',
+      '/images/imoveis/fazenda-regiao-cotegipe/pecuaria-agricultura-oeste-baiano.webp',
+      '/images/imoveis/fazenda-regiao-cotegipe/infraestrutura-fazenda-cotegipe.webp'
     ],
     
     // MENSAGEM WHATSAPP
