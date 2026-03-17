@@ -43,6 +43,49 @@ export const imoveis = [
     
     // MENSAGEM WHATSAPP
     msgWhatsapp: 'Olá André! Tenho interesse na Fazenda de 1.200 hectares em Cotegipe. Podemos conversar?'
+  },
+  {
+    // IDENTIFICAÇÃO
+    id: 'fazenda-riachao-das-neves',
+    tipo: 'rural',
+    status: 'disponivel',
+    destaque: true,
+    
+    // INFORMAÇÕES
+    titulo: 'Área de Terra – 800 Hectares – Riachão das Neves',
+    cidade: 'Riachão das Neves',
+    bairro: 'São José do Rio Grande',
+    estado: 'BA',
+    preco: 7800000,
+    area: 7806900, // 780,69 hectares em m²
+    
+    // CARACTERÍSTICAS
+    caracteristicas: [
+      '60 km de Barreiras (15 km terra)',
+      'Solo rico (Cacau, Banana e Hortaliças)',
+      'Propriedade pronta para gado',
+      'Pastagens totalmente formadas',
+      'Abundância de água natural',
+      'Casa sede confortável',
+      'Galpão de armazenagem',
+      'Casa para funcionário',
+      'Ideal para irrigação'
+    ],
+    
+    // DESCRIÇÃO
+    descricao: 'Excelente oportunidade para investimento agropecuário em Riachão das Neves. Área de 800 hectares com infraestrutura completa, casa sede, galpão e pastagens formadas. Propriedade rica em água natural, ideal para agricultura e pecuária, a apenas 60 km de Barreiras.',
+    
+    // FOTOS (Pasta: public/images/imoveis/fazenda-região-riachãodasneves/)
+    fotos: [
+      '/images/imoveis/fazenda-região-riachãodasneves/capa.webp',
+      '/images/imoveis/fazenda-região-riachãodasneves/capa2.webp',
+      '/images/imoveis/fazenda-região-riachãodasneves/capa3.webp',
+      '/images/imoveis/fazenda-região-riachãodasneves/capa4.webp',
+      '/images/imoveis/fazenda-região-riachãodasneves/capa5.webp'
+    ],
+    
+    // MENSAGEM WHATSAPP
+    msgWhatsapp: 'Olá André! Tenho interesse na área de 800 hectares em Riachão das Neves. Podemos conversar?'
   }
 ];
 
