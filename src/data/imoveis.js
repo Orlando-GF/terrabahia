@@ -70,4 +70,3 @@ export function formatarArea(area, tipo) {
   }
   return `${area.toLocaleString('pt-BR')} m²`;
 }
-// Fim do banco de dados
