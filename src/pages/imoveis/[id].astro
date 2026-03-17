@@ -38,7 +38,11 @@ const schema = {
 };
 ---
 
-<Layout titulo={imovel.titulo} descricao={imovel.descricao} imagem={imovel.fotos[0]}>
+<Layout 
+  titulo={`${imovel.titulo} em ${imovel.cidade}`} 
+  descricao={`${imovel.titulo} à venda em ${imovel.cidade}, ${imovel.estado}. ${imovel.descricao.substring(0, 150)}...`} 
+  imagem={imovel.fotos[0]}
+>
   <Header slot="header" />
 
   <section class="secao">

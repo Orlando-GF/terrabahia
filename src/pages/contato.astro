@@ -5,6 +5,27 @@ import Footer from '../components/Footer.astro';
 import { config } from '../data/config';
 
 const whatsappLink = `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(config.mensagemPadrao)}`;
+
+// Schema.org RealEstateAgent + Person
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "TerraBahia",
+  "image": `${config.siteUrl}/images/og-terrabahia.jpg`,
+  "telephone": config.corretor.telefones[0],
+  "url": config.siteUrl,
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "Bahia",
+    "addressCountry": "BR"
+  },
+  "member": {
+    "@type": "Person",
+    "name": config.corretor.nome,
+    "jobTitle": "Corretor de Imóveis",
+    "identifier": config.corretor.creci
+  }
+};
 ---
 
 <Layout titulo="Contato">
@@ -48,6 +69,8 @@ const whatsappLink = `https://wa.me/${config.whatsapp}?text=${encodeURIComponent
   </section>
 
   <Footer slot="footer" />
+  
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </Layout>
 
 <style>
