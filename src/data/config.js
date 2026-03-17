@@ -1,16 +1,16 @@
 /**
- * Configuracoes globais do site TerraBahia
+ * Configurações globais do site TerraBahia
  */
 
 export const config = {
   siteName: 'TerraBahia',
   siteUrl: 'https://www.terrabahia.com.br',
   whatsapp: '5577999636235',
-  mensagemPadrao: 'Ol\u00e1! Vi o an\u00fancio no site TerraBahia e gostaria de mais informa\u00e7\u00f5es.',
+  mensagemPadrao: 'Olá! Vi o anúncio no site TerraBahia e gostaria de mais informações.',
   
-  // Informacoes do Corretor Oficial
+  // Informações do Corretor Oficial
   corretor: {
-    nome: 'Andr\u00e9 Gomes',
+    nome: 'André Gomes',
     creci: '24.219-F',
     telefones: ['(77) 99963-6235', '(77) 99912-3456'],
   }
