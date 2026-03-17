@@ -75,13 +75,13 @@ export const imoveis = [
     // DESCRIÇÃO
     descricao: 'Excelente oportunidade para investimento agropecuário em Riachão das Neves. Área de 800 hectares com infraestrutura completa, casa sede, galpão e pastagens formadas. Propriedade rica em água natural, ideal para agricultura e pecuária, a apenas 60 km de Barreiras.',
     
-    // FOTOS (Pasta: public/images/imoveis/fazenda-região-riachãodasneves/)
+    // FOTOS (Pasta: public/images/imoveis/fazenda-riachao-das-neves/)
     fotos: [
-      '/images/imoveis/fazenda-região-riachãodasneves/capa.webp',
-      '/images/imoveis/fazenda-região-riachãodasneves/capa2.webp',
-      '/images/imoveis/fazenda-região-riachãodasneves/capa3.webp',
-      '/images/imoveis/fazenda-região-riachãodasneves/capa4.webp',
-      '/images/imoveis/fazenda-região-riachãodasneves/capa5.webp'
+      '/images/imoveis/fazenda-riachao-das-neves/fazenda-venda-riachao-das-neves-bahia.webp',
+      '/images/imoveis/fazenda-riachao-das-neves/terra-agropecuaria-oeste-baiano.webp',
+      '/images/imoveis/fazenda-riachao-das-neves/investimento-rural-bahia.webp',
+      '/images/imoveis/fazenda-riachao-das-neves/infraestrutura-fazenda-riachao.webp',
+      '/images/imoveis/fazenda-riachao-das-neves/area-rural-riachao-neves-agua.webp'
     ],
     
     // MENSAGEM WHATSAPP
