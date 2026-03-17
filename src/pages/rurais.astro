@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CardImovel from '../components/CardImovel.astro';
+import { rurais } from '../data/imoveis';
+---
+
+<Layout titulo="Imóveis Rurais">
+  <Header slot="header" />
+
+  <section class="secao">
+    <div class="container">
+      <div class="header-listagem">
+        <span class="tag">Seu refúgio</span>
+        <h1>Imóveis Rurais</h1>
+        <div class="divisor"></div>
+        <p>Fazendas, sítios e chácaras produtivas ou para lazer. Áreas selecionadas com infraestrutura e muito verde.</p>
+      </div>
+
+      {rurais.length > 0 ? (
+        <div class="grid-imoveis">
+          {rurais.map(imovel => <CardImovel imovel={imovel} />)}
+        </div>
+      ) : (
+        <div class="vazio centralizado">
+          <p>Nenhum imóvel rural disponível no momento. Entre em contato para saber de novidades.</p>
+          <a href="/contato" class="btn btn--principal clickable">Falar com Proprietário</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .header-listagem {
+    max-width: 700px;
+    margin-bottom: 4rem;
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .grid-imoveis {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .vazio {
+    padding: var(--espaco-lg) 0;
+    color: #888;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CardImovel from '../components/CardImovel.astro';
+import { casas } from '../data/imoveis';
+---
+
+<Layout titulo="Casas à Venda">
+  <Header slot="header" />
+
+  <section class="secao">
+    <div class="container">
+      <div class="header-listagem">
+        <span class="tag">Interior da Bahia</span>
+        <h1>Casas</h1>
+        <div class="divisor"></div>
+        <p>Encontre a casa dos seus sonhos no interior da Bahia. Residências selecionadas com conforto, segurança e prontas para morar.</p>
+      </div>
+
+      {casas.length > 0 ? (
+        <div class="grid-imoveis">
+          {casas.map(imovel => <CardImovel imovel={imovel} />)}
+        </div>
+      ) : (
+        <div class="vazio centralizado">
+          <p>Nenhuma casa disponível no momento. Entre em contato para saber de novidades.</p>
+          <a href="/contato" class="btn btn--principal">Falar com Proprietário</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .header-listagem {
+    max-width: 700px;
+    margin-bottom: 4rem;
+  }
+
+  .grid-imoveis {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .vazio {
+    padding: var(--espaco-lg) 0;
+    color: #888;
+  }
+
+  .vazio p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+</style>

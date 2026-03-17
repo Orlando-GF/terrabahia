@@ -1,0 +1,166 @@
+---
+import { formatarPreco, formatarArea } from '../data/imoveis';
+
+const { imovel } = Astro.props;
+const { id, titulo, cidade, bairro, estado, preco, area, fotoCapa, fotos, tipo, status } = imovel;
+
+const labelTipo = {
+  'rural': 'Imóvel Rural',
+  'terreno': 'Terreno Urbano',
+  'casa': 'Casa'
+}[tipo];
+
+const capa = fotoCapa || fotos[0];
+---
+
+<article class="card clickable">
+  <div class="card__imagem">
+    <img src={capa} alt={titulo} loading="lazy" />
+    <span class="card__tag glass">{labelTipo}</span>
+    {status === 'vendido' && <div class="card__overlay-vendido glass">Vendido</div>}
+  </div>
+
+  <div class="card__conteudo">
+    <p class="card__local">{bairro}, {cidade}</p>
+    <h3 class="card__titulo">{titulo}</h3>
+    <div class="card__detalhes">
+      <span class="area-badge">{formatarArea(area, tipo)}</span>
+    </div>
+    <div class="card__footer">
+      <p class="card__preco">{formatarPreco(preco)}</p>
+      <div class="card__seta">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>
+    </div>
+    <a href={`/imoveis/${id}`} class="card__link" aria-label={`Ver detalhes de ${titulo}`}></a>
+  </div>
+</article>
+
+<style>
+  .card {
+    background-color: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--sombra-premium);
+    position: relative;
+    border: 1px solid #f0f0f0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card__imagem {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .card__imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card:hover .card__imagem img {
+    transform: scale(1.08);
+  }
+
+  .card__tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: var(--preto);
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 10;
+  }
+
+  .card__overlay-vendido {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0,0,0,0.4);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--fonte-titulo);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    z-index: 20;
+    backdrop-filter: blur(4px);
+  }
+
+  .card__conteudo {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card__local {
+    font-size: 0.7rem;
+    color: var(--areia);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .card__titulo {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--preto);
+    font-family: var(--fonte-titulo);
+    line-height: 1.2;
+  }
+
+  .card__detalhes {
+    margin-bottom: 1.5rem;
+  }
+
+  .area-badge {
+    background: var(--verde-claro);
+    color: var(--verde);
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .card__footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #f5f5f5;
+  }
+
+  .card__preco {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--verde);
+  }
+
+  .card__seta {
+    color: var(--areia);
+    transition: transform var(--transicao);
+  }
+
+  .card:hover .card__seta {
+    transform: translateX(5px);
+  }
+
+  .card__link {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+  }
+</style>

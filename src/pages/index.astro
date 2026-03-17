@@ -1,0 +1,242 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CardImovel from '../components/CardImovel.astro';
+import { destaques } from '../data/imoveis';
+import { config } from '../data/config';
+
+const whatsappLink = `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(config.mensagemPadrao)}`;
+---
+
+<Layout>
+  <Header slot="header" />
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <span class="tag">Exclusividade no Interior da Bahia</span>
+        <h1 class="hero__title">Sua nova história <br/> começa na Bahia</h1>
+        <div class="divisor"></div>
+        <p class="hero__text">Casas em Barreiras, terrenos urbanos e áreas rurais selecionadas com documentação 100% regularizada. Atendimento personalizado e seguro.</p>
+        <div class="hero__buttons">
+          <a href="/terrenos" class="btn btn--principal clickable">Terrenos</a>
+          <a href="/casas" class="btn btn--principal clickable">Casas</a>
+          <a href="/rurais" class="btn btn--outline clickable">Áreas Rurais</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__image">
+      <img src="/images/hero_venda_terrenos_bahia.webp" alt="Paisagem rural baiana ao entardecer" loading="eager" />
+      <div class="hero__overlay"></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="secao features">
+    <div class="container grid-features">
+      <div class="feature-card clickable">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+        </div>
+        <h3>Documentação OK</h3>
+        <p>Escritura e registros rigorosamente em dia para sua total segurança.</p>
+      </div>
+      <div class="feature-card clickable">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3>Assessoria de Confiança</h3>
+        <p>Suporte de corretor credenciado e atendimento familiar transparente em cada etapa.</p>
+      </div>
+      <div class="feature-card clickable">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 4.993-5.539 10.136-7.377 11.635a1.181 1.181 0 0 1-1.246 0C9.539 20.136 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>Oportunidade ímpar</h3>
+        <p>Imóveis selecionados em regiões de alta valorização no interior baiano.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTAQUES -->
+  {destaques.length > 0 && (
+    <section class="secao secao--alternada">
+      <div class="container">
+        <div class="centralizado">
+          <span class="tag">Confira agora</span>
+          <h2>Imóveis em Destaque</h2>
+          <div class="divisor divisor--centro"></div>
+        </div>
+        
+        <div class="grid-imoveis">
+          {destaques.slice(0, 3).map(imovel => <CardImovel imovel={imovel} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA FINAL -->
+  <section class="secao cta-final">
+    <div class="container centralizado">
+      <h2>Pronto para realizar seu sonho rural?</h2>
+      <p>Estou disponível agora mesmo via WhatsApp para tirar todas as suas dúvidas.</p>
+      <a href={whatsappLink} class="btn btn--principal btn--whatsapp clickable" target="_blank" rel="noopener noreferrer">
+        Iniciar Conversa no WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  /* HERO */
+  .hero {
+    display: flex;
+    min-height: 85vh;
+    padding-top: 2rem;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--branco);
+  }
+
+  .hero__inner {
+    display: flex;
+    align-items: center;
+    z-index: 5;
+    flex: 1;
+  }
+
+  .hero__content {
+    max-width: 600px;
+    animation: fadeIn 1s ease-out;
+  }
+
+  .hero__title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--preto);
+  }
+
+  .hero__text {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    color: var(--cinza-texto);
+    opacity: 0.9;
+  }
+
+  .hero__buttons {
+    display: flex;
+    gap: 1.2rem;
+  }
+
+  .hero__image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--branco) 0%, transparent 40%);
+    z-index: 2;
+  }
+
+  /* FEATURES */
+  .grid-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature-card {
+    padding: 3rem 2rem;
+    background: var(--branco);
+    border-radius: 24px;
+    border: 1px solid #f0f0f0;
+    text-align: center;
+    box-shadow: var(--sombra-premium);
+  }
+
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--verde-claro);
+    color: var(--verde);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-family: var(--fonte-titulo);
+  }
+
+  .feature-card p {
+    font-size: 0.95rem;
+    color: var(--cinza-texto);
+    line-height: 1.5;
+  }
+
+  /* CTA FINAL */
+  .cta-final {
+    background: var(--verde);
+    color: white;
+    padding: 6rem 0;
+    margin: 4rem 1.5rem;
+    border-radius: 40px;
+  }
+
+  .cta-final h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1.5rem;
+    color: white;
+  }
+
+  .cta-final p {
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+  }
+
+  .btn--whatsapp {
+    background: var(--areia);
+    font-size: 1.1rem;
+    padding: 1.2rem 2.5rem;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (max-width: 1024px) {
+    .hero__image { display: none; }
+    .hero__content { text-align: center; margin: 0 auto; }
+    .hero__buttons { justify-content: center; }
+  }
+
+  @media (max-width: 600px) {
+    .cta-final { border-radius: 20px; margin: 2rem 1rem; }
+    .hero__buttons { flex-direction: column; }
+  }
+</style>

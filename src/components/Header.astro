@@ -1,0 +1,184 @@
+---
+import { config } from '../data/config';
+
+const links = [
+  { href: '/', label: 'Início' },
+  { href: '/terrenos', label: 'Terrenos Urbanos' },
+  { href: '/casas', label: 'Casas' },
+  { href: '/rurais', label: 'Imóveis Rurais' },
+  { href: '/contato', label: 'Contato' },
+];
+
+const atual = Astro.url.pathname;
+const whatsappLink = `https://wa.me/${config.whatsapp}`;
+---
+
+<header class="header glass sticky-nav">
+  <div class="container header__inner">
+    <a href="/" class="logo clickable" aria-label="TerraBahia — Início">
+      <span class="logo__terra">Terra</span><span class="logo__bahia">Bahia</span>
+    </a>
+
+    <button class="menu-toggle clickable" id="menuToggle" aria-label="Abrir Menu" aria-expanded="false">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </button>
+
+    <nav class="nav" id="mainNav">
+      <ul class="nav__list">
+        {links.map(link => (
+          <li>
+            <a 
+              href={link.href} 
+              class={`nav__link clickable ${atual === link.href ? 'nav__link--active' : ''}`}
+              aria-current={atual === link.href ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href={whatsappLink} class="btn btn--principal btn--whatsapp-nav clickable" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp">
+        WhatsApp
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    margin: 1.5rem auto;
+    border-radius: 50px;
+    position: sticky;
+    top: 1.5rem;
+    z-index: 1000;
+    width: calc(100% - 3rem);
+    max-width: 1200px;
+    box-shadow: var(--sombra-premium);
+  }
+
+  .header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 0 2rem;
+  }
+
+  .logo {
+    font-family: var(--fonte-titulo);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .logo__terra { color: var(--verde); }
+  .logo__bahia { color: var(--areia); }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav__list {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+  }
+
+  .nav__link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cinza-texto);
+    text-decoration: none;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    transition: all var(--transicao);
+  }
+
+  .nav__link:hover,
+  .nav__link--active {
+    color: var(--verde);
+    background: rgba(29, 53, 15, 0.05);
+  }
+
+  .btn--whatsapp-nav {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.75rem;
+    border-radius: 30px;
+  }
+
+  /* Menu Mobile */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: none;
+    border: none;
+    z-index: 1001;
+  }
+
+  .line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--verde);
+    transition: all var(--transicao);
+    border-radius: 2px;
+  }
+
+  @media (max-width: 1024px) {
+    .nav__list { display: none; }
+    .menu-toggle { display: flex; }
+    
+    .nav.active {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100vh;
+      background: white;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .nav.active .nav__list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav.active .nav__link {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mainNav');
+
+  toggle?.addEventListener('click', () => {
+    const isActive = nav?.classList.toggle('active');
+    toggle.setAttribute('aria-expanded', String(isActive));
+    
+    const lines = toggle.querySelectorAll('.line');
+    if (isActive) {
+      lines[0].style.transform = 'translateY(8px) rotate(45deg)';
+      lines[1].style.opacity = '0';
+      lines[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+      document.body.style.overflow = 'hidden';
+    } else {
+      lines[0].style.transform = 'none';
+      lines[1].style.opacity = '1';
+      lines[2].style.transform = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  });
+</script>

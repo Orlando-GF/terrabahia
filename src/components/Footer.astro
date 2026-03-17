@@ -1,0 +1,113 @@
+---
+import { config } from '../data/config';
+const ano = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <span class="logo logo--footer">
+        <span class="logo__terra">Terra</span><span class="logo__bahia">Bahia</span>
+      </span>
+      <p class="footer__tagline">Especialista em terrenos urbanos e áreas rurais no interior da Bahia. Transparência e segurança com suporte especializado.</p>
+    </div>
+
+    <div class="footer__nav">
+      <h4>Links Rápidos</h4>
+      <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="/terrenos">Terrenos Urbanos</a></li>
+        <li><a href="/rurais">Imóveis Rurais</a></li>
+        <li><a href="/contato">Contato</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__contato">
+      <h4>Atendimento</h4>
+      <p>Suporte Especializado</p>
+      <a href={`https://wa.me/${config.whatsapp}`} class="footer__link" aria-label="WhatsApp Corretor">
+        {config.corretor.telefones[0]}
+      </a>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container">
+      <p>&copy; {ano} {config.siteName}. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--preto);
+    color: #fff;
+    padding-top: var(--espaco-lg);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--espaco-lg);
+    padding-bottom: var(--espaco-lg);
+  }
+
+  .logo--footer {
+    font-size: 2rem;
+    margin-bottom: var(--espaco-sm);
+    display: block;
+    font-family: var(--fonte-titulo);
+  }
+
+  .footer__brand .logo__terra { color: var(--verde-claro); }
+
+  .footer__tagline {
+    color: #888;
+    max-width: 350px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  h4 {
+    color: var(--areia);
+    font-size: 1.1rem;
+    margin-bottom: var(--espaco-md);
+    font-family: var(--fonte-corpo);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  ul { list-style: none; }
+
+  ul li { margin-bottom: 0.75rem; }
+
+  ul a, .footer__link {
+    color: #bbb;
+    font-size: 0.9rem;
+  }
+
+  ul a:hover, .footer__link:hover {
+    color: #fff;
+  }
+
+  .footer__bottom {
+    background-color: #111;
+    padding: var(--espaco-sm) 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555;
+    border-top: 1px solid #222;
+  }
+
+  @media (max-width: 768px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+      gap: var(--espaco-md);
+      text-align: center;
+    }
+
+    .footer__brand .footer__tagline {
+      margin: 0 auto;
+    }
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import { config } from '../data/config';
+import '../styles/global.css';
+
+interface Props {
+  titulo?: string;
+  descricao?: string;
+  imagem?: string;
+  canonicalUrl?: string;
+}
+
+const { 
+  titulo, 
+  descricao = "Casas em Barreiras, terrenos urbanos e imóveis rurais no interior da Bahia. Documentação regularizada e assessoria completa.", 
+  imagem = "/images/og-terrabahia.jpg", 
+  canonicalUrl 
+} = Astro.props;
+
+const siteUrl = config.siteUrl;
+const tituloFull = titulo ? `${titulo} | ${config.siteName}` : `${config.siteName} — Imóveis e Terrenos na Bahia`;
+const canonical = canonicalUrl || Astro.url.href;
+
+// Simplificação Pro Max para evitar erros de build com new URL() em alguns builds estáticos
+const ogImageUrl = imagem.startsWith('http') ? imagem : `${siteUrl}${imagem}`;
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1d350f" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- SEO -->
+    <title>{tituloFull}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={tituloFull} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={config.siteName} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={tituloFull} />
+    <meta name="twitter:description" content={descricao} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <slot name="header" />
+    <main>
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>

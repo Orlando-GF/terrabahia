@@ -1,0 +1,320 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { imoveis, formatarPreco, formatarArea } from '../../data/imoveis';
+import { config } from '../../data/config';
+
+export async function getStaticPaths() {
+  return imoveis.map(imovel => ({
+    params: { id: imovel.id },
+    props: { imovel }
+  }));
+}
+
+const { imovel } = Astro.props;
+const whatsappLink = `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(imovel.msgWhatsapp)}`;
+
+const labelTipo = {
+  'rural': 'Imóvel Rural',
+  'terreno': 'Terreno Urbano',
+  'casa': 'Casa'
+}[imovel.tipo];
+
+const rotaTipo = {
+  'rural': '/rurais',
+  'terreno': '/terrenos',
+  'casa': '/casas'
+}[imovel.tipo];
+
+// Schema.org RealEstateListing
+const schema = {
+  "@context": "https://schema.org/",
+  "@type": "RealEstateListing",
+  "name": imovel.titulo,
+  "description": imovel.descricao,
+  "url": `${config.siteUrl}/imoveis/${imovel.id}`,
+  "image": imovel.fotos[0],
+};
+---
+
+<Layout titulo={imovel.titulo} descricao={imovel.descricao} imagem={imovel.fotos[0]}>
+  <Header slot="header" />
+
+  <section class="secao">
+    <div class="container">
+      
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Início</a> › 
+        <a href={rotaTipo}>{labelTipo}</a> › 
+        <span>{imovel.titulo}</span>
+      </nav>
+
+      <div class="detalhe-grid">
+        <!-- Galeria -->
+        <div class="galeria">
+          <div class="galeria__principal clickable js-lightbox-trigger" data-index="0">
+            <img src={imovel.fotos[0]} alt={imovel.titulo} loading="eager" />
+            {imovel.status === 'vendido' && <div class="vendido-badge">Vendido</div>}
+            <div class="zoom-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize-2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y2="21" x2="10" y2="14"/></svg>
+            </div>
+          </div>
+          {imovel.fotos.length > 1 && (
+            <div class="galeria__thumbs">
+              {imovel.fotos.map((foto, index) => (
+                <img src={foto} alt={`Foto ${index + 1} de ${imovel.titulo}`} loading="lazy" class="clickable js-lightbox-trigger" data-index={index} />
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Info -->
+        <aside class="sidebar">
+          <div class="sidebar__header">
+            <span class="tag">{labelTipo}</span>
+            <h1>{imovel.titulo}</h1>
+            <p class="localizacao">{imovel.bairro}, {imovel.cidade} — {imovel.estado}</p>
+            <p class="preco">{formatarPreco(imovel.preco)}</p>
+          </div>
+
+          <div class="sidebar__specs">
+            <div class="spec">
+              <strong>Área Total:</strong> {formatarArea(imovel.area, imovel.tipo)}
+            </div>
+          </div>
+
+          <div class="sidebar__caracteristicas">
+            <h3>Destaques:</h3>
+            <ul>
+              {imovel.caracteristicas.map(item => <li>{item}</li>)}
+            </ul>
+          </div>
+
+          {imovel.status === 'disponivel' && (
+            <div class="sidebar__cta">
+              <a href={whatsappLink} class="btn btn--principal btn--whatsapp btn--full" target="_blank" rel="noopener noreferrer">
+                Tenho Interesse (WhatsApp)
+              </a>
+            </div>
+          )}
+        </aside>
+      </div>
+
+      <!-- Descrição Longa -->
+      <div class="descricao">
+        <h2>Sobre o Imóvel</h2>
+        <div class="divisor"></div>
+        <p>{imovel.descricao}</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lightbox Overlay -->
+  <div id="lightbox" class="lightbox">
+    <button class="lightbox__close" id="closeLightbox" aria-label="Fechar Galeria">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    
+    <div class="lightbox__content">
+      <img src="" id="lightboxImg" class="lightbox__image" alt="Imagem ampliada" />
+    </div>
+
+    <div class="lightbox__nav">
+      <button class="lightbox__btn" id="prevImg">← Anterior</button>
+      <button class="lightbox__btn" id="nextImg">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- Injetar Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <script define:vars={{ fotos: imovel.fotos }}>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const triggers = document.querySelectorAll('.js-lightbox-trigger');
+    const closeBtn = document.getElementById('closeLightbox');
+    const prevBtn = document.getElementById('prevImg');
+    const nextBtn = document.getElementById('nextImg');
+    
+    let currentIndex = 0;
+
+    const openLightbox = (index) => {
+      currentIndex = index;
+      lightboxImg.src = fotos[currentIndex];
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    };
+
+    const showNext = () => {
+      currentIndex = (currentIndex + 1) % fotos.length;
+      lightboxImg.src = fotos[currentIndex];
+    };
+
+    const showPrev = () => {
+      currentIndex = (currentIndex - 1 + fotos.length) % fotos.length;
+      lightboxImg.src = fotos[currentIndex];
+    };
+
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const index = parseInt(trigger.getAttribute('data-index'));
+        openLightbox(index);
+      });
+    });
+
+    closeBtn?.addEventListener('click', closeLightbox);
+    nextBtn?.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+    prevBtn?.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+    
+    lightbox?.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') showNext();
+      if (e.key === 'ArrowLeft') showPrev();
+    });
+  </script>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .breadcrumb {
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: #888;
+  }
+
+  .breadcrumb a {
+    color: var(--verde);
+    margin: 0 0.5rem;
+  }
+
+  .breadcrumb a:first-child { margin-left: 0; }
+
+  .detalhe-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* Galeria */
+  .galeria__principal {
+    position: relative;
+    border-radius: var(--raio-lg);
+    overflow: hidden;
+    box-shadow: var(--sombra-premium);
+    aspect-ratio: 16 / 9;
+  }
+
+  .galeria__principal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .zoom-icon {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity var(--transicao);
+    backdrop-filter: blur(4px);
+  }
+
+  .galeria__principal:hover .zoom-icon {
+    opacity: 1;
+  }
+
+  .vendido-badge {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: var(--fonte-titulo);
+    text-transform: uppercase;
+  }
+
+  .galeria__thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .galeria__thumbs img {
+    border-radius: var(--raio);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: border-color var(--transicao);
+  }
+
+  .galeria__thumbs img:hover {
+    border-color: var(--areia);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background: #fff;
+    padding: 2rem;
+    border-radius: var(--raio-lg);
+    box-shadow: var(--sombra-premium);
+    border: 1px solid #eee;
+    position: sticky;
+    top: 100px;
+  }
+
+  .sidebar__header h1 { font-size: 1.75rem; margin: 0.5rem 0; }
+  .localizacao { color: #888; margin-bottom: 1rem; }
+  .preco { font-size: 1.5rem; font-weight: 700; color: var(--verde); margin-bottom: 2rem; }
+
+  .sidebar__specs {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar__caracteristicas h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: #555; }
+  .sidebar__caracteristicas ul { list-style: none; margin-top: 0.75rem; }
+  .sidebar__caracteristicas li { margin-bottom: 0.5rem; position: relative; padding-left: 1.5rem; font-size: 0.95rem; }
+  .sidebar__caracteristicas li::before { content: '✓'; position: absolute; left: 0; color: var(--verde); font-weight: bold; }
+
+  .sidebar__cta { margin-top: 2rem; }
+  .btn--full { width: 100%; text-align: center; }
+
+  /* Descrição */
+  .descricao {
+    margin-top: 4rem;
+    max-width: 800px;
+  }
+
+  .descricao p { font-size: 1.1rem; color: #555; }
+
+  @media (max-width: 1024px) {
+    .detalhe-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+</style>

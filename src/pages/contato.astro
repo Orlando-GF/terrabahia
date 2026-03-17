@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { config } from '../data/config';
+
+const whatsappLink = `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(config.mensagemPadrao)}`;
+---
+
+<Layout titulo="Contato">
+  <Header slot="header" />
+
+  <section class="secao">
+    <div class="container">
+      <div class="contato-grid">
+        <div class="contato__info">
+          <span class="tag">Fale Conosco</span>
+          <h1>Estamos à sua disposição</h1>
+          <div class="divisor"></div>
+          <p>Nossa equipe está pronta para oferecer suporte total na sua busca pelo imóvel ideal. Contamos com a expertise de corretores credenciados e um compromisso familiar com a sua segurança.</p>
+          
+          <div class="corretor-card glass">
+            <h3>{config.corretor.nome}</h3>
+            <p class="creci">Corretor de Imóveis — CRECI N° {config.corretor.creci}</p>
+            <div class="contatos-lista">
+              {config.corretor.telefones.map(tel => (
+                <div class="contato-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone-call"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/><path d="M14.05 2a9 9 0 0 1 8 8"/><path d="M14.05 6A5 5 0 0 1 18 10"/></svg>
+                  <span>{tel}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="contato__cta glass centralizado">
+          <div class="icon-whatsapp">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+          </div>
+          <h2>Atendimento Imediato</h2>
+          <p>Clique no botão abaixo para iniciar uma conversa direta via WhatsApp.</p>
+          <a href={whatsappLink} class="btn btn--principal btn--whatsapp btn--full clickable" target="_blank" rel="noopener noreferrer">
+            Abrir WhatsApp Agora
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .contato-grid {
+    display: grid;
+    grid-template-columns: 1fr 450px;
+    gap: 4rem;
+    align-items: center;
+    padding: 2rem 0;
+  }
+
+  .contato__info h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .corretor-card {
+    margin-top: 3rem;
+    padding: 2.5rem;
+    border-radius: 24px;
+  }
+
+  .corretor-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--verde);
+  }
+
+  .creci {
+    font-weight: 600;
+    color: var(--areia);
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .contatos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .contato-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+    color: var(--cinza-texto);
+  }
+
+  .contato-item svg {
+    color: var(--verde);
+  }
+
+  .contato__cta {
+    padding: 4rem 3rem;
+    border-radius: 40px;
+    box-shadow: var(--sombra-premium);
+  }
+
+  .icon-whatsapp {
+    margin-bottom: 1.5rem;
+  }
+
+  .contato__cta h2 {
+    margin-bottom: 1rem;
+  }
+
+  .contato__cta p {
+    margin-bottom: 2.5rem;
+  }
+
+  .btn--full {
+    width: 100%;
+    justify-content: center;
+  }
+
+  @media (max-width: 1024px) {
+    .contato-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    
+    .contato__cta {
+      order: -1;
+    }
+  }
+</style>
