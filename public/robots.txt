@@ -11,4 +11,4 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://www.terrabahia.com.br/sitemap-index.xml
+Sitemap: https://www.terrabahia.com.br/sitemap.xml
