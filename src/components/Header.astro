@@ -132,11 +132,24 @@ const whatsappLink = `https://wa.me/${config.whatsapp}`;
   }
 
   @media (max-width: 1024px) {
-    .nav .btn--whatsapp-nav { display: none; }
-    .nav__list { display: none; }
-    .menu-toggle { display: flex; }
-    
+    .header {
+      width: calc(100% - 1.5rem);
+      top: 1rem;
+      margin: 1rem auto;
+    }
+
+    .header__inner {
+      padding: 0 1.5rem;
+      height: 60px;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+    }
+
+    .nav { display: none; }
     .nav.active {
+      display: flex;
       position: fixed;
       top: 0;
       right: 0;
@@ -158,6 +171,8 @@ const whatsappLink = `https://wa.me/${config.whatsapp}`;
     .nav.active .nav__link {
       font-size: 1.5rem;
     }
+
+    .menu-toggle { display: flex; }
   }
 </style>
 
