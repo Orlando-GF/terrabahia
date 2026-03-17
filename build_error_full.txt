@@ -1,0 +1,50 @@
+﻿16:05:39 [types] Generated 57ms
+16:05:39 [build] output: "static"
+16:05:39 [build] directory: C:\Users\orlan\Documents\Visual Studio Code\terrabahia\dist\
+16:05:39 [build] Collecting build info...
+16:05:39 [build] Ô£ô Completed in 69ms.
+16:05:39 [build] Building static entrypoints...
+16:05:40 [vite] [32mÔ£ô built in 942ms[39m
+16:05:40 [build] Ô£ô Completed in 970ms.
+
+ building client (vite) 
+16:05:40 [vite] transforming...
+16:05:40 [vite] [32mÔ£ô[39m 2 modules transformed.
+16:05:40 [vite] rendering chunks...
+16:05:40 [vite] [32mÔ£ô built in 10ms[39m
+
+ generating static routes 
+16:05:40 ÔûÂ src/pages/casas.astro
+16:05:40   ÔööÔöÇ /casas/index.html (+6ms)
+16:05:40 ÔûÂ src/pages/contato.astro
+16:05:40   ÔööÔöÇ /contato/index.html (+3ms)
+16:05:40 ÔûÂ src/pages/imoveis/[id].astro
+16:05:40   ÔööÔöÇ /imoveis/fazenda-regiao-cotegipe/index.html (+4ms)
+16:05:40 ÔûÂ src/pages/rurais.astro
+16:05:40   ÔööÔöÇ /rurais/index.html (+3ms)
+16:05:40 ÔûÂ src/pages/terrenos.astro
+16:05:40   ÔööÔöÇ /terrenos/index.html (+2ms)
+16:05:40 ÔûÂ src/pages/index.astro
+16:05:40   ÔööÔöÇ /index.html (+3ms)
+16:05:40 Ô£ô Completed in 45ms.
+
+node.exe : Cannot read properties of undefined (reading 'reduce')
+No linha:1 caractere:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cannot read pro...ading 'reduce'):St 
+   ring) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Location:
+    C:\Users\orlan\Documents\Visual Studio 
+Code\terrabahia\node_modules\@astrojs\sitemap\dist\index.js:69:37
+  Stack trace:
+    at astro:build:done (file:///C:/Users/orlan/Documents/Visual%20Studio%20Code/t
+errabahia/node_modules/@astrojs/sitemap/dist/index.js:69:37)
+    at async AstroBuilder.build (file:///C:/Users/orlan/Documents/Visual%20Studio%
+20Code/terrabahia/node_modules/astro/dist/core/build/index.js:159:5)
+    at async build (file:///C:/Users/orlan/Documents/Visual%20Studio%20Code/terrab
+ahia/node_modules/astro/dist/core/build/index.js:51:3)
+    at async runCommand (file:///C:/Users/orlan/Documents/Visual%20Studio%20Code/t
+errabahia/node_modules/astro/dist/cli/index.js:147:7)
