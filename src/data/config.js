@@ -1,12 +1,12 @@
 /**
- * Configurações globais do site TerraBahia
+ * Configurações globais do site André Gomez Imóveis
  */
 
 export const config = {
-  siteName: 'TerraBahia',
-  siteUrl: 'https://www.terrabahia.com.br',
+  siteName: 'André Gomez Imóveis',
+  siteUrl: 'https://www.andregomezimoveis.com.br',
   whatsapp: '5577999636235',
-  mensagemPadrao: 'Olá! Vi o anúncio no site TerraBahia e gostaria de mais informações.',
+  mensagemPadrao: 'Olá! Vi o anúncio no site André Gomez Imóveis e gostaria de mais informações.',
   
   // Informações do Corretor Oficial
   corretor: {

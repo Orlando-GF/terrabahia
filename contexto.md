@@ -1,10 +1,12 @@
-# TerraBahia — Regras do Projeto
+# André Gomez Imóveis — Regras do Projeto
 
 ## O que é este projeto
 
-Site estático para divulgar terrenos urbanos e imóveis rurais no interior da Bahia.
-O proprietário é também o vendedor — não há corretora, não há intermediários.
+Site estático para divulgar imóveis no interior da Bahia — terrenos urbanos, casas e imóveis rurais.
+O corretor é André Gomez — ele vende diretamente, sem corretora intermediária.
 O único objetivo do site é gerar contato via WhatsApp.
+
+**Domínio:** andregomezimoveis.com.br
 
 ---
 
@@ -20,7 +22,9 @@ O único objetivo do site é gerar contato via WhatsApp.
 
 ## Identidade visual
 
-**Nome:** TerraBahia
+**Nome:** André Gomez Imóveis
+
+**Logo:** exibido como `André Gomez` em destaque + `Imóveis` menor abaixo ou ao lado.
 
 **Paleta de cores — usar sempre as variáveis, nunca hex avulso:**
 
@@ -50,8 +54,9 @@ O único objetivo do site é gerar contato via WhatsApp.
 | Página            | Rota            | Conteúdo                                     |
 | ----------------- | --------------- | -------------------------------------------- |
 | Home              | `/`             | Hero, destaques, categorias, CTA WhatsApp    |
-| Terrenos urbanos  | `/terrenos`     | Listagem de terrenos disponíveis             |
-| Imóveis rurais    | `/rurais`       | Listagem de rurais disponíveis               |
+| Terrenos          | `/terrenos`     | Listagem de terrenos disponíveis             |
+| Casas             | `/casas`        | Listagem de casas disponíveis                |
+| Rurais            | `/rurais`       | Listagem de rurais disponíveis               |
 | Detalhe do imóvel | `/imoveis/[id]` | Fotos, informações completas, botão WhatsApp |
 | Contato           | `/contato`      | Texto simples + botão WhatsApp               |
 
@@ -65,6 +70,7 @@ O arquivo `src/data/config.js` centraliza as configurações do proprietário:
 
 - Número de WhatsApp no formato `55` + DDD + número, sem espaços ou traços. Ex: `5577984138877`
 - Mensagem padrão de contato usada quando o usuário não vem de um imóvel específico
+- URL do site: `https://www.andregomezimoveis.com.br`
 
 O número de WhatsApp nunca deve ser repetido hardcoded em páginas ou componentes — sempre importado de `config.js`.
 
@@ -74,22 +80,22 @@ O número de WhatsApp nunca deve ser repetido hardcoded em páginas ou component
 
 ### Campos de cada imóvel
 
-| Campo             | Tipo                          | Descrição                                                                           |
-| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------- |
-| `id`              | string                        | Slug único, sem espaços ou acentos. Ex: `terreno-jequie-centro`                     |
-| `tipo`            | `'terreno'` ou `'rural'`      | Define em qual listagem o imóvel aparece                                            |
-| `status`          | `'disponivel'` ou `'vendido'` | Controla visibilidade e botão de contato                                            |
-| `destaque`        | boolean                       | Se `true` e disponível, aparece na seção de destaques da home                       |
-| `titulo`          | string                        | Nome do imóvel, usado nos headings e no title da página                             |
-| `cidade`          | string                        | Cidade onde o imóvel está localizado                                                |
-| `bairro`          | string                        | Bairro ou localidade — exibido no card e na página                                  |
-| `estado`          | string                        | Sigla do estado. Ex: `BA`                                                           |
-| `preco`           | number                        | Valor em reais, sem formatação. Ex: `85000`                                         |
-| `area`            | number                        | Área em metros quadrados                                                            |
-| `caracteristicas` | string[]                      | Lista de diferenciais do imóvel                                                     |
-| `descricao`       | string                        | Texto corrido usado no SEO e na página do imóvel                                    |
-| `fotos`           | string[]                      | Caminhos das imagens em `public/images/imoveis/[id]/`. Mínimo de 1 foto obrigatória |
-| `msgWhatsapp`     | string                        | Mensagem pré-preenchida usada no botão da página de detalhe do imóvel               |
+| Campo             | Tipo                               | Descrição                                                                           |
+| ----------------- | ---------------------------------- | ----------------------------------------------------------------------------------- |
+| `id`              | string                             | Slug único, sem espaços ou acentos. Ex: `terreno-jequie-centro`                     |
+| `tipo`            | `'terreno'`, `'casa'` ou `'rural'` | Define em qual listagem o imóvel aparece                                            |
+| `status`          | `'disponivel'` ou `'vendido'`      | Controla visibilidade e botão de contato                                            |
+| `destaque`        | boolean                            | Se `true` e disponível, aparece na seção de destaques da home                       |
+| `titulo`          | string                             | Nome do imóvel, usado nos headings e no title da página                             |
+| `cidade`          | string                             | Cidade onde o imóvel está localizado                                                |
+| `bairro`          | string                             | Bairro ou localidade — exibido no card e na página                                  |
+| `estado`          | string                             | Sigla do estado. Ex: `BA`                                                           |
+| `preco`           | number                             | Valor em reais, sem formatação. Ex: `85000`                                         |
+| `area`            | number                             | Área em metros quadrados                                                            |
+| `caracteristicas` | string[]                           | Lista de diferenciais do imóvel                                                     |
+| `descricao`       | string                             | Texto corrido usado no SEO e na página do imóvel                                    |
+| `fotos`           | string[]                           | Caminhos das imagens em `public/images/imoveis/[id]/`. Mínimo de 1 foto obrigatória |
+| `msgWhatsapp`     | string                             | Mensagem pré-preenchida usada no botão da página de detalhe do imóvel               |
 
 Todo imóvel deve ter ao menos uma foto cadastrada. Imóvel sem foto não deve ser renderizado e deve gerar um aviso de erro no console durante o build.
 
@@ -103,6 +109,7 @@ Imóveis vendidos não são deletados — ficam no arquivo para histórico e pro
 ### Regras das listagens
 
 - `/terrenos` exibe apenas imóveis com `tipo: 'terreno'` e `status: 'disponivel'`
+- `/casas` exibe apenas imóveis com `tipo: 'casa'` e `status: 'disponivel'`
 - `/rurais` exibe apenas imóveis com `tipo: 'rural'` e `status: 'disponivel'`
 - A ordem de exibição segue a ordem de cadastro no arquivo — primeiro cadastrado, primeiro exibido
 - Os cards não têm botão de WhatsApp — o card inteiro é clicável e leva para a página de detalhe do imóvel, onde o contato acontece
@@ -119,7 +126,7 @@ Imóveis vendidos não são deletados — ficam no arquivo para histórico e pro
 
 ## Regras de SEO
 
-- Cada página tem `<title>` único no formato `[Título da Página] | TerraBahia`
+- Cada página tem `<title>` único no formato `[Título da Página] | André Gomez Imóveis`
 - Cada página tem `<meta name="description">` própria com localização mencionada, entre 120 e 160 caracteres
 - Toda imagem tem `alt` descritivo, `width` e `height` definidos
 - A primeira imagem de cada página usa `loading="eager"`, as demais `loading="lazy"`

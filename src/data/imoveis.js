@@ -1,5 +1,5 @@
 /**
- * Banco de dados oficial dos imóveis - TerraBahia
+ * Banco de dados oficial dos imóveis - André Gomez Imóveis
  */
 
 export const imoveis = [
