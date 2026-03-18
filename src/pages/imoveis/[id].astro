@@ -292,12 +292,13 @@ const schema = {
 
   .lightbox__drag-handle {
     display: none;
-    width: 40px;
-    height: 4px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 2px;
+    width: 60px;
+    height: 5px;
+    background: rgba(255,255,255,0.4);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    border-radius: 3px;
     position: absolute;
-    top: 1rem;
+    top: 1.2rem;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -407,17 +408,29 @@ const schema = {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     color: white;
-    padding: 0.5rem;
+    padding: 0.6rem;
     border-radius: 50%;
     opacity: 0;
     transition: opacity var(--transicao);
     backdrop-filter: blur(4px);
+    pointer-events: none; /* Evita que o ícone capture o clique no lugar da imagem */
   }
 
-  .galeria__principal:hover .zoom-icon {
-    opacity: 1;
+  /* Apenas mostrar hover em dispositivos que suportam hover (desktop) */
+  @media (hover: hover) {
+    .galeria__principal:hover .zoom-icon {
+      opacity: 1;
+    }
+  }
+
+  /* No mobile, podemos deixar o ícone sempre visível ou escondido se preferir. 
+     Vamos deixar sutilmente visível para indicar que é clicável. */
+  @media (max-width: 768px) {
+    .zoom-icon {
+      opacity: 0.7;
+    }
   }
 
   .vendido-badge {
